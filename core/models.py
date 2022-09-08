@@ -7,6 +7,7 @@ def get_file_path(_instance, filename):
     filename = f'{uuid.uuid4()}.{ext}'
     return filename
 
+
 class Base(models.Model):
     criado = models.DateField('Data de criação', auto_now_add=True)
     modificado = models.DateField('Atualizado', auto_now=True)
@@ -64,3 +65,24 @@ class Funcionario(Base):
 
     def __str__(self):
         return self.nome
+
+
+class Recursos(Base):
+    ICONE_RECURSOS_CHOICES = (
+        ('lni-rocket', 'foguete'),
+        ('lni-laptop-phone', 'laptop'),
+        ('lni-cog', 'engrenagem'),
+        ('lni-cog', 'folha'),
+        ('lni-leaf', 'papeis'),
+
+    )
+    recurso = models.CharField('Nome do recurso:', max_length=30)
+    descricao = models.TextField('Descreva o recurso:', max_length=250)
+    icone = models.CharField('Icone:', max_length=20, choices=ICONE_RECURSOS_CHOICES)
+
+    class Meta:
+        verbose_name = 'Recurso'
+        verbose_name_plural = 'Recursos'
+
+    def __str__(self):
+        return self.recurso
